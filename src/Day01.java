@@ -38,12 +38,34 @@ public class Day01{
              return quickSelect(G, k-L.size()-E.size());
          }
      }
+     //part-two: 1) create a function that returns the frequency of integer k in right list using a hashmap
+    public static int idFrequency(List<Integer> nums, int k){
+         HashMap<Integer, Integer> frequency = new HashMap<>();
+         for (int num:nums){
+             if(frequency.containsKey(num)){
+                 frequency.put(num,frequency.get(num)+1);
+             }
+             else{
+                 frequency.put(num,1);
+             }
+         }
+         return frequency.get(k)==null?0:frequency.get(k);//if that integer is in the hashmap return its frequency otherwise return 0
+    }
+    //function to iterate thru left list and get similarity score
+    public static int similarityScore(List<Integer> left, List<Integer> right){
+         int similarityScore = 0;
+         for (int num:left){
+             similarityScore+=num*idFrequency(right,num);
+         }
+         return similarityScore;
+    }
     public static void main(String[] args){
+         //reading the input into two arraylists left&right
         List<Integer> left = new ArrayList<>();
         List<Integer> right = new ArrayList<>();
         String regex = "[\\s]";
         try {
-            File myObj = new File("inputs/input.txt");
+            File myObj = new File("inputs/input01.txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()){
                 String data = myReader.nextLine();
@@ -55,7 +77,9 @@ public class Day01{
         catch(FileNotFoundException e){
             System.out.println("An error occured");
             e.printStackTrace();
-        }
-         System.out.println(output(left,right));
+        }//solution for part one
+//         System.out.println(output(left,right));
+        //solution for part two
+//        System.out.println(similarityScore(left, right));
     }
 }
