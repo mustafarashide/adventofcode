@@ -27,5 +27,6 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-# puzzle inputs
+# puzzle inputs & tests
 inputs/*.txt
+test

@@ -28,49 +28,50 @@ public class Day02 {
         }
         return reports;
     }
+
     public static boolean safeReports(ArrayList<Integer> report) {
         HashSet<Integer> set = new HashSet<>();
-        for (int i: report) {
+        for (int i : report) {
             set.add(i);
         }
-        if(set.size() != report.size()) {
-            return false;//if there is a duplicate, then for sure this is not a safe report
+        if (set.size() - report.size() == -1) {
+            //return false;//if there is a duplicate, then for sure this is not a safe report
+            return false;
+        }
+        for (int i = 0; i < report.size() - 1; i++) {
+            if (Math.abs(report.get(i) - report.get(i + 1)) != 1 && Math.abs(report.get(i) - report.get(i + 1)) != 2 && Math.abs(report.get(i) - report.get(i + 1)) != 3) {
+                return false;
+            }
         }
         //check if increasing/decreasing
         //if increasing check if sorted report is unequal to report
         //if decreasing check if reversed sorted report is unequal to report
-        if(report.get(0)<report.get(1)) {
+        if (report.get(0) < report.get(1)) {
             ArrayList<Integer> sorted = new ArrayList<>(report);
             Collections.sort(sorted);
-            if(!sorted.equals(report)) {
+            if (!sorted.equals(report)) {
                 return false;
-            };
+            }
+            ;
         }
-        if(report.get(0)>report.get(1)) {
+        if (report.get(0) > report.get(1)) {
             ArrayList<Integer> reversedSorted = new ArrayList<>(report);
             Collections.sort(reversedSorted);
             Collections.reverse(reversedSorted);
-            if(!reversedSorted.equals(report)) {
-                return false;
-            }
-        }
-        for(int i=0;i<report.size()-1;i++) {
-            if(Math.abs(report.get(i)-report.get(i+1))!=1&&Math.abs(report.get(i)-report.get(i+1))!=2&&Math.abs(report.get(i)-report.get(i+1))!=3) {
-                return false;
-            }
+            return reversedSorted.equals(report);
         }
         return true;
-        }
-    public static void main(String[] args) {
-        reportsReader();
-        int safeReportsCount = 0;
-        ArrayList<ArrayList<Integer>> reports = reportsReader();
-        for(ArrayList<Integer> report: reports) {
-            if(safeReports(report)){
-                safeReportsCount++;
-            }
-        }
-        System.out.println(safeReportsCount);
-    }
     }
 
+    //part two, we are literally removing one level at a time :/
+    public static boolean safeReportsDampener(ArrayList<Integer> report) {
+        for (int i = 0; i < report.size(); i++) {
+            ArrayList<Integer> levelRemoved = new ArrayList<>(report);
+            levelRemoved.remove(i);
+            if (safeReports(levelRemoved)) {
+                return true;
+            }
+        }
+        return false;
+    }
+}

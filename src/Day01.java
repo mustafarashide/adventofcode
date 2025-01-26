@@ -9,7 +9,7 @@ public class Day01{
     //part one
      public static int output(List<Integer> left,List<Integer> right){
          int output=0;
-         for (int k=1;k<=1000;k++){
+         for (int k=1;k<=6;k++){
              if(quickSelect(right, k)>=quickSelect(left, k)){output+=(quickSelect(right, k))-(quickSelect(left, k));}
              else{output+=(quickSelect(left, k)-(quickSelect(right, k)));}
          }
@@ -17,6 +17,7 @@ public class Day01{
      }
      public static int quickSelect(List<Integer> nums, int k){
          int n = nums.size();
+
          if(n==1){return nums.get(0);}
          int pivotIndex = new Random().nextInt(nums.size());
          int pivot = nums.get(pivotIndex);
@@ -63,7 +64,7 @@ public class Day01{
          //reading the input into two arraylists left&right
         List<Integer> left = new ArrayList<>();
         List<Integer> right = new ArrayList<>();
-        String regex = "[\\s]";
+        String regex = "\\s";
         try {
             File myObj = new File("inputs/input01.txt");
             Scanner myReader = new Scanner(myObj);
@@ -80,6 +81,6 @@ public class Day01{
         }//solution for part one
 //         System.out.println(output(left,right));
         //solution for part two
-//        System.out.println(similarityScore(left, right));
+        System.out.println(similarityScore(left, right));
     }
 }
