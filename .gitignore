@@ -30,3 +30,4 @@ bin/
 # puzzle inputs & tests
 inputs/*.txt
 test
+*.txt
