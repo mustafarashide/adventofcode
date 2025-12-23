@@ -31,3 +31,6 @@ bin/
 inputs/*.txt
 test
 *.txt
+
+# executables
+*.out
